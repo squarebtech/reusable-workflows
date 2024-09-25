@@ -18,7 +18,7 @@ on:
     #     required: true
 
 jobs:
-  lint:
+  format:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -32,6 +32,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run ESLint
+      - name: Run Prettier
         run: npm run format
         working-directory: ${{ inputs.working-directory }}
