@@ -1,0 +1,37 @@
+name: Reusable Prettier Workflow
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: 'Node.js version'
+        type: string
+        required: false
+        default: '20'
+      working-directory:
+        description: 'The directory where Prettier should be run'
+        type: string
+        required: false
+        default: '.'
+    # secrets:
+    #   access-token:
+    #     description: 'Secret descriptoin'
+    #     required: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npm run format
+        working-directory: ${{ inputs.working-directory }}
